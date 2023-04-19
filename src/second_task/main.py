@@ -9,8 +9,13 @@ if __name__ == "__main__":
     max_increasing_sequence = finder.run(lambda x, y: x > y)
     max_decreasing_sequence = finder.run(lambda x, y: x < y)
 
+    max_increasing_sequence_length = max_increasing_sequence[1] - max_increasing_sequence[0]
+    max_decreasing_sequence_length = max_decreasing_sequence[1] - max_decreasing_sequence[0]
+
     result = max_decreasing_sequence
-    if max_increasing_sequence[1] - max_increasing_sequence[0] > max_decreasing_sequence[1] - max_decreasing_sequence[0]:
+    if (max_increasing_sequence_length > max_decreasing_sequence_length) or \
+            (max_increasing_sequence_length == max_decreasing_sequence_length and
+                max_increasing_sequence[0] < max_decreasing_sequence[0]):
         result = max_increasing_sequence
 
     print(f"{result[0]}, {result[1]}")
