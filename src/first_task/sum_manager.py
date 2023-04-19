@@ -9,15 +9,39 @@ class SumManager:
 
     def __init__(self, n, required_sum):
         self.n = n
+        self.max_number_length = len(str(required_sum))
         self.required_sum = required_sum
         self.initial_string = "".join([str(i) for i in range(1, n + 1)])
-        self.sum_items = [SumItem(self.initial_string[i:]) for i in range(len(self.initial_string))]
-        self.current_sum = sum(self.sum_items)
+        initial_sum_item = SumItem(self.initial_string)
+        self.sum_items = [initial_sum_item] + initial_sum_item.create_initial_sum_items()
+
+    @property
+    def current_sum(self):
+        return sum(self.sum_items)
+
+    @property
+    def result(self):
+        return "+".join(map(str, self.sum_items))
 
     def run(self):
-        return NotImplemented
+        while self.sum_items:
+            current_sum = self.current_sum
+            if current_sum == self.required_sum:
+                return self.result
 
+            # todo: pass optimization arg = rest of the sum digit length
+            last_item = self.sum_items[-1]
+            incremented = last_item.increment() and last_item.current_number_length <= self.max_number_length
+            while not incremented:
+                del self.sum_items[-1]
+                if self.sum_items:
+                    last_item = self.sum_items[-1]
+                    incremented = last_item.increment() and last_item.current_number_length <= self.max_number_length
+                else:
+                    break
 
-if __name__ == "__main__":
-    manager = SumManager(5, 15)
-    pass
+            if self.sum_items:
+                self.sum_items += last_item.create_initial_sum_items()
+
+        return self.result
+
