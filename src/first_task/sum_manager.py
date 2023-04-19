@@ -43,4 +43,3 @@ class SumManager:
                 self.sum_items += last_item.create_initial_sum_items()
 
         return self.result
-
