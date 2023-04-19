@@ -7,6 +7,6 @@ if __name__ == "__main__":
     result = sum_manager.run()
 
     if not result:
-        print(f"There is no possible way to obtain {m} from '{''.join([str(i) for i in range(1, n+1)])}'")
+        print(f"There is no possible way to obtain {m} from '{sum_manager.initial_string}'")
     else:
-        print(result)
+        print(f"{result}={m}")

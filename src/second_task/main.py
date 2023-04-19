@@ -13,4 +13,4 @@ if __name__ == "__main__":
     if max_increasing_sequence[1] - max_increasing_sequence[0] > max_decreasing_sequence[1] - max_decreasing_sequence[0]:
         result = max_increasing_sequence
 
-    print(result)
+    print(f"{result[0]}, {result[1]}")
