@@ -29,14 +29,13 @@ class SumManager:
             if current_sum == self.required_sum:
                 return self.result
 
-            # todo: pass optimization arg = rest of the sum digit length
             last_item = self.sum_items[-1]
-            incremented = last_item.increment() and last_item.current_number_length <= self.max_number_length
+            incremented = last_item.increment(self.required_sum - current_sum)
             while not incremented:
                 del self.sum_items[-1]
                 if self.sum_items:
                     last_item = self.sum_items[-1]
-                    incremented = last_item.increment() and last_item.current_number_length <= self.max_number_length
+                    incremented = last_item.increment(self.required_sum - self.current_sum)
                 else:
                     break
 
