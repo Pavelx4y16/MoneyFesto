@@ -7,8 +7,13 @@ def _test_finder(sequence, expected_result):
     max_increasing_sequence = finder.run(lambda x, y: x > y)
     max_decreasing_sequence = finder.run(lambda x, y: x < y)
 
+    max_increasing_sequence_length = max_increasing_sequence[1] - max_increasing_sequence[0]
+    max_decreasing_sequence_length = max_decreasing_sequence[1] - max_decreasing_sequence[0]
+
     result = max_decreasing_sequence
-    if max_increasing_sequence[1] - max_increasing_sequence[0] > max_decreasing_sequence[1] - max_decreasing_sequence[0]:
+    if (max_increasing_sequence_length > max_decreasing_sequence_length) or \
+            (max_increasing_sequence_length == max_decreasing_sequence_length and
+                max_increasing_sequence[0] < max_decreasing_sequence[0]):
         result = max_increasing_sequence
 
     assert result == expected_result
@@ -21,3 +26,5 @@ def test_finder():
     _test_finder([1, 2, 3], (0, 2))
     _test_finder([1, 2, 3, 2, 1, 0], (2, 5))
     _test_finder([5, 1, 2, 3, 4, 5, 2, 1, 0], (1, 5))
+    _test_finder([1, 2, 3, 2, 1], (0, 2))
+    _test_finder([3, 2, 1, 2, 3], (0, 2))
